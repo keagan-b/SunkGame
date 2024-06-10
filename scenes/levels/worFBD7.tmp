@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://df7aagws3svjt"]
+
+[ext_resource type="PackedScene" uid="uid://dpm38ckifcttt" path="res://scenes/prefabs/player.tscn" id="1_afhyy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iug85"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_gfnh8"]
+sky_material = SubResource("ProceduralSkyMaterial_iug85")
+
+[sub_resource type="Environment" id="Environment_bljdi"]
+background_mode = 2
+sky = SubResource("Sky_gfnh8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihg4s"]
+albedo_color = Color(0.440336, 0.440336, 0.440336, 1)
+uv1_triplanar = true
+
+[node name="World" type="Node"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_bljdi")
+
+[node name="Ground" type="CSGBox3D" parent="Environment/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_ihg4s")
+
+[node name="Player" parent="Environment/WorldEnvironment" instance=ExtResource("1_afhyy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mouse_sensitivity = 0.4
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4)
+size = Vector3(1, 2, 1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true

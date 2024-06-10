@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://df7aagws3svjt"]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_pulip"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iug85"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_gfnh8"]
+sky_material = SubResource("ProceduralSkyMaterial_iug85")
+
+[sub_resource type="Environment" id="Environment_bljdi"]
+background_mode = 2
+sky = SubResource("Sky_gfnh8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_7jlg4"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ixoqv"]
+size = Vector3(10, 1, 10)
+
+[node name="World" type="Node"]
+script = ExtResource("1_pulip")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("../Environment")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/prefabs/player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 8
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_bljdi")
+
+[node name="Ground" type="StaticBody3D" parent="Environment/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WorldEnvironment/Ground"]
+mesh = SubResource("BoxMesh_7jlg4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldEnvironment/Ground"]
+shape = SubResource("BoxShape3D_ixoqv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true

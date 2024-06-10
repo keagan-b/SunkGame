@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpm38ckifcttt"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_6p7h3"]
+[ext_resource type="Script" path="res://scripts/player_input.gd" id="2_wb6er"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ejx8b"]
+properties/0/path = NodePath(".:player")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f8xcy"]
+properties/0/path = NodePath("PlayerInput:velocities")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2oxqh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2oa2c"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_6p7h3")
+mouse_sensitivity = 0.05
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ejx8b")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("camera", "player")]
+replication_config = SubResource("SceneReplicationConfig_f8xcy")
+script = ExtResource("2_wb6er")
+camera = NodePath("../PlayerCamera")
+player = NodePath("..")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+fov = 90.0
+
+[node name="PlayerMesh" type="StaticBody3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="PlayerMesh"]
+mesh = SubResource("CapsuleMesh_2oxqh")
+
+[node name="PlayerCollider" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2oa2c")

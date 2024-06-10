@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://bby148utevo1f"]
+
+[ext_resource type="Theme" uid="uid://btpq5inkr1wy1" path="res://themes/ui_base.tres" id="1_0g2m2"]
+[ext_resource type="Script" path="res://scripts/ui_handler.gd" id="1_exn5r"]
+
+[node name="MainMenu" type="Node"]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_exn5r")
+
+[node name="IPInput" type="LineEdit" parent="Canvas/MainMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.368
+anchor_right = 0.5
+anchor_bottom = 0.368
+offset_left = 427.0
+offset_top = 193.28
+offset_right = 670.0
+offset_bottom = 256.28
+theme = ExtResource("1_0g2m2")
+text = "127.0.0.1"
+placeholder_text = "Server IP"
+alignment = 1
+
+[node name="ConnectButton" type="Button" parent="Canvas/MainMenu"]
+layout_mode = 0
+offset_left = 494.0
+offset_top = 347.0
+offset_right = 660.0
+offset_bottom = 410.0
+theme = ExtResource("1_0g2m2")
+text = "Connect"
+
+[node name="HostButton" type="Button" parent="Canvas/MainMenu"]
+layout_mode = 0
+offset_left = 529.0
+offset_top = 437.0
+offset_right = 626.0
+offset_bottom = 500.0
+theme = ExtResource("1_0g2m2")
+text = "Host"
+
+[node name="Lobby" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
