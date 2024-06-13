@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://df7aagws3svjt"]
+[gd_scene load_steps=16 format=3 uid="uid://df7aagws3svjt"]
 
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_pulip"]
+[ext_resource type="Script" path="res://scripts/server/game_manager.gd" id="1_pulip"]
+[ext_resource type="PackedScene" uid="uid://c88x8do36ghy5" path="res://scenes/prefabs/components/DamageSourceComponent.tscn" id="2_6er5t"]
 [ext_resource type="PackedScene" uid="uid://dhap8p41uj2oa" path="res://scenes/prefabs/options.tscn" id="2_p4lu5"]
+[ext_resource type="Script" path="res://scripts/ui/master_ui_handler.gd" id="3_i36su"]
+[ext_resource type="Script" path="res://scripts/ui/game_ui_handler.gd" id="4_ppfxn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iug85"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,6 +18,14 @@ background_mode = 2
 sky = SubResource("Sky_gfnh8")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mcltg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbsaj"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i1jr5"]
+material = SubResource("StandardMaterial3D_dbsaj")
 
 [sub_resource type="BoxMesh" id="BoxMesh_7jlg4"]
 size = Vector3(10, 1, 10)
@@ -53,6 +64,16 @@ spawn_limit = 8
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_bljdi")
 
+[node name="DamageSourceComponent" parent="Environment/WorldEnvironment" instance=ExtResource("2_6er5t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.42667, 0.49888, 4.40033)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldEnvironment/DamageSourceComponent"]
+shape = SubResource("BoxShape3D_mcltg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WorldEnvironment/DamageSourceComponent"]
+mesh = SubResource("BoxMesh_i1jr5")
+skeleton = NodePath("")
+
 [node name="Ground" type="StaticBody3D" parent="Environment/WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
@@ -71,11 +92,19 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("3_i36su")
 
-[node name="GameUI" type="Control" parent="UI"]
+[node name="GameUI" type="Control" parent="UI" node_paths=PackedStringArray("health_status_bar", "health_value", "oxygen_status_bar", "oxygen_value", "hunger_status_bar", "hunger_value")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("4_ppfxn")
+health_status_bar = NodePath("StatBars/Bars/Health/StatusBar")
+health_value = NodePath("StatBars/Bars/Health/StatusValue")
+oxygen_status_bar = NodePath("StatBars/Bars/Oxygen/StatusBar")
+oxygen_value = NodePath("StatBars/Bars/Oxygen/StatusValue")
+hunger_status_bar = NodePath("StatBars/Bars/Hunger/StatusBar")
+hunger_value = NodePath("StatBars/Bars/Hunger/StatusValue")
 
 [node name="StatBars" type="Panel" parent="UI/GameUI"]
 layout_mode = 1
@@ -91,24 +120,35 @@ offset_right = 250.0
 layout_mode = 0
 offset_right = 250.0
 offset_bottom = 120.0
+theme_override_constants/separation = 35
 vertical = true
 
 [node name="Health" type="Control" parent="UI/GameUI/StatBars/Bars"]
 layout_mode = 2
 
+[node name="Icon" type="Label" parent="UI/GameUI/StatBars/Bars/Health"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 13.0
+offset_right = 23.0
+offset_bottom = 36.0
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StatusBar" type="ColorRect" parent="UI/GameUI/StatBars/Bars/Health"]
 layout_mode = 0
-offset_left = 4.0
+offset_left = 24.0
 offset_top = 13.0
-offset_right = 245.0
+offset_right = 236.0
 offset_bottom = 36.0
 color = Color(1, 0, 0, 0.588235)
 
 [node name="StatusValue" type="Label" parent="UI/GameUI/StatBars/Bars/Health"]
 layout_mode = 0
-offset_left = 4.0
+offset_left = 24.0
 offset_top = 13.0
-offset_right = 245.0
+offset_right = 236.0
 offset_bottom = 36.0
 text = "100%"
 label_settings = SubResource("LabelSettings_1achr")
@@ -118,19 +158,29 @@ vertical_alignment = 1
 [node name="Oxygen" type="Control" parent="UI/GameUI/StatBars/Bars"]
 layout_mode = 2
 
+[node name="Icon" type="Label" parent="UI/GameUI/StatBars/Bars/Oxygen"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 13.0
+offset_right = 23.0
+offset_bottom = 36.0
+text = "O"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StatusBar" type="ColorRect" parent="UI/GameUI/StatBars/Bars/Oxygen"]
 layout_mode = 0
-offset_left = 4.0
+offset_left = 24.0
 offset_top = 13.0
-offset_right = 245.0
+offset_right = 236.0
 offset_bottom = 36.0
 color = Color(0.783538, 0.810658, 0.979429, 0.588235)
 
 [node name="StatusValue" type="Label" parent="UI/GameUI/StatBars/Bars/Oxygen"]
 layout_mode = 0
-offset_left = 4.0
+offset_left = 24.0
 offset_top = 13.0
-offset_right = 245.0
+offset_right = 236.0
 offset_bottom = 36.0
 text = "100%"
 label_settings = SubResource("LabelSettings_1achr")
@@ -140,19 +190,29 @@ vertical_alignment = 1
 [node name="Hunger" type="Control" parent="UI/GameUI/StatBars/Bars"]
 layout_mode = 2
 
+[node name="Icon" type="Label" parent="UI/GameUI/StatBars/Bars/Hunger"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 13.0
+offset_right = 23.0
+offset_bottom = 36.0
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StatusBar" type="ColorRect" parent="UI/GameUI/StatBars/Bars/Hunger"]
 layout_mode = 0
-offset_left = 4.0
+offset_left = 24.0
 offset_top = 13.0
-offset_right = 245.0
+offset_right = 236.0
 offset_bottom = 36.0
 color = Color(0.388843, 0.234956, 0.20475, 0.588235)
 
 [node name="StatusValue" type="Label" parent="UI/GameUI/StatBars/Bars/Hunger"]
 layout_mode = 0
-offset_left = 4.0
+offset_left = 24.0
 offset_top = 13.0
-offset_right = 245.0
+offset_right = 236.0
 offset_bottom = 36.0
 text = "100%"
 label_settings = SubResource("LabelSettings_1achr")

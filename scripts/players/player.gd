@@ -12,6 +12,8 @@ extends CharacterBody3D
 # modifiable variables
 @export var mouse_sensitivity = 0.4
 
+# player variables/information
+@export var is_alive = true
 
 # movement variables
 var target_velocity = Vector3.ZERO

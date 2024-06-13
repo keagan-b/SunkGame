@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpm38ckifcttt"]
+[gd_scene load_steps=11 format=3 uid="uid://dpm38ckifcttt"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_6p7h3"]
-[ext_resource type="Script" path="res://scripts/player_input.gd" id="2_wb6er"]
+[ext_resource type="Script" path="res://scripts/players/player.gd" id="1_85ti3"]
+[ext_resource type="Script" path="res://scripts/players/player_input.gd" id="2_jdjg3"]
+[ext_resource type="PackedScene" uid="uid://0br3kioi4f1x" path="res://scenes/prefabs/components/HealthComponent.tscn" id="3_iv4nu"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ejx8b"]
 properties/0/path = NodePath(".:player")
@@ -22,18 +23,23 @@ properties/1/path = NodePath("PlayerInput:camera_rotations")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_2oxqh"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d7qn0"]
+properties/0/path = NodePath("HealthComponent:current_health")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_tqjni"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s68ku"]
 albedo_color = Color(1, 0.2, 0, 1)
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2oxqh"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2oa2c"]
 
 [node name="Player" type="CharacterBody3D"]
 motion_mode = 1
-script = ExtResource("1_6p7h3")
+script = ExtResource("1_85ti3")
 mouse_sensitivity = 0.05
 
 [node name="LocationSyncronizer" type="MultiplayerSynchronizer" parent="."]
@@ -41,18 +47,17 @@ replication_config = SubResource("SceneReplicationConfig_ejx8b")
 
 [node name="PlayerInput" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("camera", "player")]
 replication_config = SubResource("SceneReplicationConfig_f8xcy")
-script = ExtResource("2_wb6er")
+script = ExtResource("2_jdjg3")
 camera = NodePath("../PlayerCamera")
 player = NodePath("..")
+
+[node name="PlayerDataSyncronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_d7qn0")
+public_visibility = false
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 fov = 90.0
-
-[node name="PlayerMesh" type="StaticBody3D" parent="."]
-
-[node name="Mesh" type="MeshInstance3D" parent="PlayerMesh"]
-mesh = SubResource("CapsuleMesh_2oxqh")
 
 [node name="LookIndicator" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, -0.5)
@@ -60,5 +65,11 @@ mesh = SubResource("SphereMesh_tqjni")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_s68ku")
 
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_2oxqh")
+skeleton = NodePath("")
+
 [node name="PlayerCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_2oa2c")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_iv4nu")]
