@@ -24,6 +24,7 @@ func add_player(id):
 	character.name = str(id)
 	$Players.add_child(character, true)
 	
+
 func remove_player(id):
 	if not $Players.has_node(str(id)):
 		return

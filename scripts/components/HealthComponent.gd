@@ -45,4 +45,4 @@ func initialize_health():
 
 
 func get_health_as_percent():
-	return ((1.0 / max_health) * current_health) * 100
+	return (1.0 / max_health) * current_health

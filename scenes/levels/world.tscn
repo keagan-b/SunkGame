@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://df7aagws3svjt"]
+[gd_scene load_steps=18 format=3 uid="uid://df7aagws3svjt"]
 
 [ext_resource type="Script" path="res://scripts/server/game_manager.gd" id="1_pulip"]
 [ext_resource type="PackedScene" uid="uid://c88x8do36ghy5" path="res://scenes/prefabs/components/DamageSourceComponent.tscn" id="2_6er5t"]
 [ext_resource type="PackedScene" uid="uid://dhap8p41uj2oa" path="res://scenes/prefabs/options.tscn" id="2_p4lu5"]
 [ext_resource type="Script" path="res://scripts/ui/master_ui_handler.gd" id="3_i36su"]
+[ext_resource type="PackedScene" uid="uid://bu6p45dndvat8" path="res://scenes/prefabs/WaterPlane.tscn" id="3_m5348"]
 [ext_resource type="Script" path="res://scripts/ui/game_ui_handler.gd" id="4_ppfxn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iug85"]
@@ -18,6 +19,10 @@ background_mode = 2
 sky = SubResource("Sky_gfnh8")
 tonemap_mode = 2
 glow_enabled = true
+fog_density = 0.1491
+fog_height = -1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mcltg"]
 
@@ -32,6 +37,9 @@ size = Vector3(10, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ixoqv"]
 size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_es8kf"]
+size = Vector3(1, 0.599121, 1)
 
 [sub_resource type="FontFile" id="FontFile_veqj3"]
 cache/0/16/0/ascent = 0.0
@@ -65,7 +73,7 @@ spawn_limit = 8
 environment = SubResource("Environment_bljdi")
 
 [node name="DamageSourceComponent" parent="Environment/WorldEnvironment" instance=ExtResource("2_6er5t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.42667, 0.49888, 4.40033)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20552, 1.10862, 4.1062)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldEnvironment/DamageSourceComponent"]
 shape = SubResource("BoxShape3D_mcltg")
@@ -75,13 +83,25 @@ mesh = SubResource("BoxMesh_i1jr5")
 skeleton = NodePath("")
 
 [node name="Ground" type="StaticBody3D" parent="Environment/WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WorldEnvironment/Ground"]
 mesh = SubResource("BoxMesh_7jlg4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldEnvironment/Ground"]
 shape = SubResource("BoxShape3D_ixoqv")
+
+[node name="Water" type="Node3D" parent="Environment/WorldEnvironment"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="WaterSurface" type="StaticBody3D" parent="Environment/WorldEnvironment/Water"]
+
+[node name="WaterPlane" parent="Environment/WorldEnvironment/Water/WaterSurface" instance=ExtResource("3_m5348")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.91495e-05, 2.38419e-07, -8.21877e-05)
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldEnvironment/Water/WaterSurface"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.200439, 0)
+shape = SubResource("BoxShape3D_es8kf")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)

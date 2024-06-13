@@ -25,7 +25,17 @@ func _process(delta):
 		
 	# assign UI elements
 	if player != null:
-		health_value.text = str(health_component.get_health_as_percent()) + "%"
+		var health_percent = health_component.get_health_as_percent()
+		health_value.text = str(int(health_percent * 100)) + "%"
+		health_status_bar.scale.x = health_percent
+		
+		var oxygen_percent = 1
+		oxygen_value.text = str(int(oxygen_percent * 100)) + "%"
+		oxygen_status_bar.scale.x = oxygen_percent
+		
+		var hunger_percent = 1
+		hunger_value.text = str(int(hunger_percent * 100)) + "%"
+		hunger_status_bar.scale.x = hunger_percent
 
 
 func set_local_player():
