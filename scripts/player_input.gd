@@ -11,14 +11,17 @@ extends MultiplayerSynchronizer
 @export var use_direction := false
 
 @export var velocities := Vector3()
+@export var camera_rotations := Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
-
+	var is_authority = get_multiplayer_authority() == multiplayer.get_unique_id()
+	set_process(is_authority)
+	set_process_input(is_authority)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# check for vertical movement
 	vertical_move = true
 	if Input.is_action_pressed("move_up"):
 		vertical_dir = 1
@@ -28,8 +31,10 @@ func _process(delta):
 		vertical_dir = 0
 		vertical_move = false
 	
+	# create an input direction vector
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	
+	# calculate movement direction
 	var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	
@@ -59,16 +64,15 @@ func _process(delta):
 		use_direction = false
 		velocities = Vector3(move_toward(player.velocity.x, 0, player_speed), vel_y, move_toward(player.velocity.z, 0, player_speed))
 
+	# reset camera vectors
+	camera_rotations = Vector2.ZERO
+
 
 func _input(event):
+	# handle camera look events
 	if event is InputEventMouseMotion:
-		print(str(player.player) + ": " + str(deg_to_rad(-event.relative.y * player.mouse_sensitivity)))
-			
 		# rotate whole body
-		player.rotate_y(deg_to_rad(-event.relative.x * player.mouse_sensitivity))
+		camera_rotations.y = deg_to_rad(-event.relative.x * player.mouse_sensitivity)
 			
 		# rotate camera
-		camera.rotate_x(deg_to_rad(-event.relative.y * player.mouse_sensitivity))
-			
-		# clamp camera rotation
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+		camera_rotations.x = deg_to_rad(-event.relative.y * player.mouse_sensitivity)

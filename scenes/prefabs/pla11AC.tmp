@@ -32,8 +32,8 @@ albedo_color = Color(1, 0.2, 0, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2oa2c"]
 
 [node name="Player" type="CharacterBody3D"]
-motion_mode = 1
 script = ExtResource("1_6p7h3")
+player = null
 mouse_sensitivity = 0.05
 
 [node name="LocationSyncronizer" type="MultiplayerSynchronizer" parent="."]
@@ -54,10 +54,11 @@ fov = 90.0
 [node name="Mesh" type="MeshInstance3D" parent="PlayerMesh"]
 mesh = SubResource("CapsuleMesh_2oxqh")
 
-[node name="LookIndicator" type="MeshInstance3D" parent="."]
+[node name="LookIndicator" type="StaticBody3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, -0.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="LookIndicator"]
 mesh = SubResource("SphereMesh_tqjni")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_s68ku")
 
 [node name="PlayerCollider" type="CollisionShape3D" parent="."]
