@@ -52,6 +52,7 @@ script = ExtResource("1_pulip")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/prefabs/entities/player.tscn")
 spawn_path = NodePath("../Players")
 spawn_limit = 8
 
@@ -65,6 +66,7 @@ environment = SubResource("Environment_bljdi")
 [node name="DamageSourceComponent" parent="Environment/WorldEnvironment" instance=ExtResource("2_6er5t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20552, 1.10862, 4.1062)
 damage = 100
+destroy_on_damage = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldEnvironment/DamageSourceComponent"]
 shape = SubResource("BoxShape3D_mcltg")

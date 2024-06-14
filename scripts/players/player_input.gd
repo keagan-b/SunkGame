@@ -15,7 +15,7 @@ extends MultiplayerSynchronizer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var is_authority = get_multiplayer_authority() == multiplayer.get_unique_id()
+	var is_authority = is_multiplayer_authority()
 	set_process(is_authority)
 	set_process_input(is_authority)
 

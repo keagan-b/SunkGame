@@ -12,16 +12,13 @@ extends CharacterBody3D
 # modifiable variables
 @export var mouse_sensitivity = 0.4
 
-# player variables/information
-@export var is_alive = true
-
 # movement variables
 var target_velocity = Vector3.ZERO
 
 func _ready():
 	# set multiplayer input constraints
 	if player == multiplayer.get_unique_id():
-		print("Character spawned: " + str(multiplayer.get_unique_id()))
+		print("Spawned character " + str(multiplayer.get_unique_id()))
 		
 		# set camera mode
 		camera.make_current()
@@ -77,5 +74,6 @@ func _has_died():
 	
 	# spawn "dead body" here
 	
-	# delete self from players
-	queue_free()
+	# request removal
+	get_parent().get_parent().request_removal.rpc_id(1)
+	

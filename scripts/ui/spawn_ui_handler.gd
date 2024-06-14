@@ -10,5 +10,5 @@ func _ready():
 
 func _on_respawn_pressed():
 	# respawn player
-	owner.request_respawn()
+	owner.request_respawn.rpc_id(1)
 	parent.respawn()
