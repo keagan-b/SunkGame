@@ -16,6 +16,7 @@ extends Control
 # variables related to local player health
 @onready var player: CharacterBody3D = null
 @onready var health_component: HealthComponent = null
+@onready var oxygen_component: OxygenComponent = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -29,7 +30,7 @@ func _process(delta):
 		health_value.text = str(int(health_percent * 100)) + "%"
 		health_status_bar.scale.x = health_percent
 		
-		var oxygen_percent = 1
+		var oxygen_percent = oxygen_component.get_oxygen_as_percent()
 		oxygen_value.text = str(int(oxygen_percent * 100)) + "%"
 		oxygen_status_bar.scale.x = oxygen_percent
 		
@@ -45,3 +46,4 @@ func set_local_player():
 	# get individual components if the player was found
 	if player != null:
 		health_component = player.get_node("HealthComponent")
+		oxygen_component = player.get_node("OxygenComponent")

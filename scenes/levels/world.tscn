@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/server/game_manager.gd" id="1_pulip"]
 [ext_resource type="PackedScene" uid="uid://c88x8do36ghy5" path="res://scenes/prefabs/components/DamageSourceComponent.tscn" id="2_6er5t"]
-[ext_resource type="PackedScene" uid="uid://dhap8p41uj2oa" path="res://scenes/prefabs/options.tscn" id="2_p4lu5"]
+[ext_resource type="PackedScene" uid="uid://dhap8p41uj2oa" path="res://scenes/prefabs/ui/options.tscn" id="2_p4lu5"]
 [ext_resource type="Script" path="res://scripts/ui/master_ui_handler.gd" id="3_i36su"]
-[ext_resource type="PackedScene" uid="uid://bu6p45dndvat8" path="res://scenes/prefabs/WaterPlane.tscn" id="3_m5348"]
+[ext_resource type="PackedScene" uid="uid://bu6p45dndvat8" path="res://scenes/prefabs/world/WaterPlane.tscn" id="3_m5348"]
 [ext_resource type="Script" path="res://scripts/ui/game_ui_handler.gd" id="4_ppfxn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iug85"]
@@ -61,7 +61,6 @@ script = ExtResource("1_pulip")
 root_path = NodePath("../Environment")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/prefabs/player.tscn")
 spawn_path = NodePath("../Players")
 spawn_limit = 8
 

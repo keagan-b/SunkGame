@@ -20,8 +20,9 @@ func take_damage(damage_source: DamageComponent):
 	current_health -= damage_source.damage
 	
 	damage_taken.emit(old_health, current_health, damage_source)
-	
+		
 	if current_health <= 0:
+		current_health = 0
 		has_died.emit()
 
 @rpc("authority", "reliable")
