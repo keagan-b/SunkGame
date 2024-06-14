@@ -13,17 +13,27 @@ signal has_died
 # functionality
 func _ready():
 	initialize_health()
+	
 
 @rpc("authority", "reliable")
-func take_damage(damage_source: DamageComponent):
+func take_damage(damage: float):
+	var old_health = current_health
+	current_health -= damage
+	
+	damage_taken.emit(old_health, current_health, null)
+		
+	check_is_dead()
+
+
+@rpc("authority", "reliable")
+func take_damage_from_source(damage_source: DamageComponent):
 	var old_health = current_health
 	current_health -= damage_source.damage
 	
 	damage_taken.emit(old_health, current_health, damage_source)
 		
-	if current_health <= 0:
-		current_health = 0
-		has_died.emit()
+	check_is_dead()
+
 
 @rpc("authority", "reliable")
 func heal(amount):
@@ -33,7 +43,7 @@ func heal(amount):
 	# check if the healed amount is more than max health
 	if current_health > max_health:
 		current_health = max_health
-	
+
 
 @rpc("authority", "reliable")
 func set_max_health(health):
@@ -43,6 +53,13 @@ func set_max_health(health):
 @rpc("authority", "reliable")
 func initialize_health():
 	current_health = max_health
+
+
+@rpc("authority", "reliable")
+func check_is_dead():
+	if current_health <= 0:
+		current_health = 0
+		has_died.emit()
 
 
 func get_health_as_percent():

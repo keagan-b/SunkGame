@@ -20,7 +20,7 @@ func _ready():
 	set_process_input(is_authority)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	# check for vertical movement
 	vertical_move = true
 	if Input.is_action_pressed("move_up"):

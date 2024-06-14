@@ -20,7 +20,7 @@ func _on_body_entered(body: Node3D):
 		var health_component = body.get_node_or_null("HealthComponent")
 		
 		if health_component != null:
-			health_component.take_damage(self)
+			health_component.take_damage_from_source(self)
 			
 			if destroy_on_damage:
 				queue_free()

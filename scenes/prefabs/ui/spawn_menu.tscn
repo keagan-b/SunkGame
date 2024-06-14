@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccoj557vmy4nd"]
+
+[ext_resource type="Script" path="res://scripts/ui/spawn_ui_handler.gd" id="1_ic730"]
+
+[node name="SpawnMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ic730")
+
+[node name="Header" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 28.8
+anchor_bottom = 2.675
+
+[node name="DeadLabel" type="Label" parent="Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "The ocean claims your body...
+
+You have died."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Footer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 13.525
+anchor_right = 28.8
+anchor_bottom = 16.2
+
+[node name="RespawnButton" type="Button" parent="Footer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.905
+anchor_top = 0.271
+anchor_right = 0.986
+anchor_bottom = 0.72
+offset_left = 0.439941
+offset_top = 0.00299644
+offset_right = 0.12793
+offset_bottom = -0.0400009
+text = "Respawn"

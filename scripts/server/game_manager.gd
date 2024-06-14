@@ -1,4 +1,5 @@
 extends Node
+class_name GameManager
 
 func _ready():
 	if not multiplayer.is_server():
@@ -15,7 +16,7 @@ func _ready():
 		
 
 func add_player(id):
-	var character = preload("res://scenes/prefabs/player.tscn").instantiate()
+	var character = preload("res://scenes/prefabs/entities/player.tscn").instantiate()
 	
 	character.player = id
 	
@@ -29,3 +30,21 @@ func remove_player(id):
 	if not $Players.has_node(str(id)):
 		return
 	$Players.get_node(str(id)).queue_free()
+
+
+# client callable respawn function, checks with the server before respawning a player
+@rpc("any_peer", "reliable")
+func request_respawn():
+	var player_id = multiplayer.get_remote_sender_id()
+	if multiplayer.is_server() && is_player_dead(player_id):
+		print("Respawn request for " + str(player_id))
+		add_player(player_id)
+
+
+# utility function for checking if a user is dead
+func is_player_dead(id):
+	if $Players.get_node_or_null(str(id)) == null:
+		return true
+	else:
+		return false
+

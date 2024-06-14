@@ -17,34 +17,35 @@ script = ExtResource("1_exn5r")
 [node name="IPInput" type="LineEdit" parent="Canvas/MainMenu"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.368
-anchor_right = 0.5
-anchor_bottom = 0.368
-offset_left = 427.0
-offset_top = 193.28
-offset_right = 670.0
-offset_bottom = 256.28
+anchor_left = 11.175
+anchor_top = 5.2
+anchor_right = 17.25
+anchor_bottom = 6.775
+offset_top = -1.52588e-05
 theme = ExtResource("1_0g2m2")
 text = "127.0.0.1"
 placeholder_text = "Server IP"
 alignment = 1
 
 [node name="ConnectButton" type="Button" parent="Canvas/MainMenu"]
-layout_mode = 0
-offset_left = 494.0
-offset_top = 347.0
-offset_right = 660.0
-offset_bottom = 410.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 12.35
+anchor_top = 8.675
+anchor_right = 16.5
+anchor_bottom = 10.25
+offset_bottom = -3.05176e-05
 theme = ExtResource("1_0g2m2")
 text = "Connect"
 
 [node name="HostButton" type="Button" parent="Canvas/MainMenu"]
-layout_mode = 0
-offset_left = 529.0
-offset_top = 437.0
-offset_right = 626.0
-offset_bottom = 500.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 13.225
+anchor_top = 10.925
+anchor_right = 15.65
+anchor_bottom = 12.5
+offset_bottom = -3.05176e-05
 theme = ExtResource("1_0g2m2")
 text = "Host"
 
