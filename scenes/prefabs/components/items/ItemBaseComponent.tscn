@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c551vm2qs3v3g"]
+
+[ext_resource type="Script" path="res://scripts/components/items/ItemBaseComponent.gd" id="1_erm0o"]
+
+[node name="ItemBaseComponent" type="Node"]
+script = ExtResource("1_erm0o")

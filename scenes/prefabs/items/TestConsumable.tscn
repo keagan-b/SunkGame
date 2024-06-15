@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgpl7xluje3gd"]
+
+[ext_resource type="Script" path="res://scripts/components/items/ConsumableItemComponent.gd" id="1_6l0uy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_oo6jx"]
+
+[node name="TestConsumable" type="Node"]
+script = ExtResource("1_6l0uy")
+increase_value = 10.0
+item_name = "Test Health Consumable"
+item_desc = "Heals your health... through the power of magic!"
+ground_mesh = SubResource("SphereMesh_oo6jx")
+item_icon = "res://assets/items/icons/test_consumable.png"

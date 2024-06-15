@@ -62,6 +62,9 @@ func respawn():
 
 	# activate game ui
 	game_ui.show()
+	
+	# reset event connections
+	events_connected = false
 
 
 # utility function to hide all UI

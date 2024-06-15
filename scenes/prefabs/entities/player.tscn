@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpm38ckifcttt"]
+[gd_scene load_steps=13 format=3 uid="uid://dpm38ckifcttt"]
 
 [ext_resource type="Script" path="res://scripts/players/player.gd" id="1_1ola7"]
 [ext_resource type="Script" path="res://scripts/players/player_input.gd" id="2_3us7l"]
 [ext_resource type="PackedScene" uid="uid://0br3kioi4f1x" path="res://scenes/prefabs/components/HealthComponent.tscn" id="3_k7o46"]
 [ext_resource type="PackedScene" uid="uid://b23ydoccygjt7" path="res://scenes/prefabs/components/OxygenComponent.tscn" id="4_j304b"]
+[ext_resource type="PackedScene" uid="uid://dtsufl8cep73w" path="res://scenes/prefabs/components/InventoryComponent.tscn" id="5_2kwv8"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ejx8b"]
 properties/0/path = NodePath(".:player")
@@ -37,6 +38,9 @@ properties/2/replication_mode = 2
 properties/3/path = NodePath("OxygenComponent:current_oxygen")
 properties/3/spawn = true
 properties/3/replication_mode = 2
+properties/4/path = NodePath("InventoryComponent:inventory")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [sub_resource type="SphereMesh" id="SphereMesh_tqjni"]
 
@@ -68,6 +72,8 @@ public_visibility = false
 [node name="HealthComponent" parent="." instance=ExtResource("3_k7o46")]
 
 [node name="OxygenComponent" parent="." instance=ExtResource("4_j304b")]
+
+[node name="InventoryComponent" parent="." instance=ExtResource("5_2kwv8")]
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)

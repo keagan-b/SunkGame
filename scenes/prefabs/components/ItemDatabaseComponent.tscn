@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhil53nnd5t1i"]
+
+[ext_resource type="Script" path="res://scripts/components/ItemDatabaseComponent.gd" id="1_5mlgt"]
+[ext_resource type="PackedScene" uid="uid://cgpl7xluje3gd" path="res://scenes/prefabs/items/TestConsumable.tscn" id="2_auymv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vf2eg"]
+
+[node name="ItemDatabaseComponent" type="Node" node_paths=PackedStringArray("item_database")]
+script = ExtResource("1_5mlgt")
+item_database = [NodePath("TestConsumable")]
+
+[node name="TestConsumable" parent="." instance=ExtResource("2_auymv")]
+ground_mesh = SubResource("SphereMesh_vf2eg")

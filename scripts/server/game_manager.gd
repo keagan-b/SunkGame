@@ -1,7 +1,11 @@
 extends Node
 class_name GameManager
 
+static var item_db: ItemDatabaseComponent = null
+
 func _ready():
+	item_db = $ItemDatabaseComponent
+
 	if not multiplayer.is_server():
 		return
 		
