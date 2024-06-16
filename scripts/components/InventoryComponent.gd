@@ -74,7 +74,6 @@ func add_item(id: int, quantity: int = 1):
 		# check if inventory has space
 		var empty = get_empty()
 		while empty != null && quantity > 0:
-			print(empty)
 			# update remaining space
 			remaining_space -= 1
 			

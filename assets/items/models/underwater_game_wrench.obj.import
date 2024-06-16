@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bgbyqqbk3p7gm"
+path="res://.godot/imported/underwater_game_wrench.obj-a4bf9a2e7c9bb25c6f0574fddcdf432c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/underwater_game_wrench.obj-a4bf9a2e7c9bb25c6f0574fddcdf432c.mesh"]
+
+source_file="res://assets/items/models/underwater_game_wrench.obj"
+dest_files=["res://.godot/imported/underwater_game_wrench.obj-a4bf9a2e7c9bb25c6f0574fddcdf432c.mesh", "res://.godot/imported/underwater_game_wrench.obj-a4bf9a2e7c9bb25c6f0574fddcdf432c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -103,7 +103,7 @@ shape = SubResource("BoxShape3D_es8kf")
 
 [node name="DroppedItemObject" parent="Environment/WorldEnvironment" instance=ExtResource("5_787ab")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -4)
-item_id = 0
+item_id = 1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)

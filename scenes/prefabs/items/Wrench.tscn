@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://2cs1i5gw4mpr"]
+
+[ext_resource type="Script" path="res://scripts/components/items/WeaponItemComponent.gd" id="1_p7flr"]
+[ext_resource type="ArrayMesh" uid="uid://bgbyqqbk3p7gm" path="res://assets/items/models/underwater_game_wrench.obj" id="2_hgvlw"]
+
+[node name="Wrench" type="Node"]
+script = ExtResource("1_p7flr")
+damage = 5.0
+item_name = "Wrench"
+item_desc = "Pringle's wrench"
+ground_mesh = ExtResource("2_hgvlw")
+item_icon = "res://assets/items/icons/wrench.png"
+is_holdable = true
+holdable_model = ExtResource("2_hgvlw")

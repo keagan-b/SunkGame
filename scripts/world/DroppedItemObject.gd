@@ -27,7 +27,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	print(try_update)
 	if try_update:
 		if item_id != -1:
 			set_item(item_id)
